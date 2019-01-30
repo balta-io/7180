@@ -1,0 +1,14 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "ts-node -r tsconfig-paths/register src/main.ts",
+  "env": {
+    "NODE_ENV": "development",
+    "CONNECTION_STRING": "mongodb://balta:balta.1980@ds115154.mlab.com:15154/1980"
+  }
+}
