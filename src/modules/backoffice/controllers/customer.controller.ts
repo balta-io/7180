@@ -11,7 +11,6 @@ import { CreateCustomerDto } from '../dtos/create-customer.dto';
 import { CreateAddressContract } from '../contracts/customer/create-address.contract';
 import { Address } from '../models/address.model';
 import { Pet } from '../models/pet.model';
-import { Guid } from "guid-typescript";
 import { CreatePetContract } from '../contracts/customer/create-pet.contract';
 
 @Controller('v1/customers')
