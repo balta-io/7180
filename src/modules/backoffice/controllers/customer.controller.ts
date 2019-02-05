@@ -89,9 +89,13 @@ export class CustomerController {
         return this.customerService.query(model);
     }
 
-    // @Put()
-    // async put() { }
+    // Alterar um cliente
 
-    // @Delete()
-    // async delete() { }
+    // Adicionar/Remover Cartão de Crédito
+
+    // Imagem no Customer/Pet
+
+    // Remover um Pet
+
+    // Envio de E-mail
 }
