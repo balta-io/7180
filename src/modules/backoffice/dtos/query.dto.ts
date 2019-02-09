@@ -1,4 +1,4 @@
-export class Query {
+export class QueryDto {
     constructor(
         public query: any,
         public fields: string,

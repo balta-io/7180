@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "b74916d1-5586-497a-bb24-1449681d8816",
+		"name": "7180",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer - Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Bruce Wayne\",\n\t\"document\":\"12345678911\",\n\t\"email\":\"batman@balta.io\",\n\t\"password\":\"123456789\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer - Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"André Baltieri\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/customers/12345678911",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"customers",
+						"12345678911"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customers - List All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/v1/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customers - Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/v1/customers/12345678911",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"customers",
+						"12345678911"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customers - Query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": {},\n    \"fields\": \"name email\",\n    \"skip\": 0,\n    \"take\": 25,\n    \"sort\": \"-name\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/customers/query",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"customers",
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customers - Credit Card",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"holder\": \"BRUCE W WAYNE\",\n    \"number\": \"4111111111111111\",\n    \"expiration\": \"0621\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/customers/12345678911/credit-cards",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"customers",
+						"12345678911",
+						"credit-cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Addresses - Billing",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"street\": \"Nome da Rua\",\n    \"number\": \"017\",\n    \"complement\": \"N/A\",\n    \"neighborhood\": \"Bairro Legal\",\n    \"city\": \"Gotham\",\n    \"state\": \"GT\",\n    \"country\": \"BRA\",\n    \"zipCode\": \"13400000\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/addresses/12345678911/billing",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"addresses",
+						"12345678911",
+						"billing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Addresses - Shipping",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"street\": \"Nome da Rua\",\n    \"number\": \"017\",\n    \"complement\": \"N/A\",\n    \"neighborhood\": \"Bairro Legal\",\n    \"city\": \"Gotham\",\n    \"state\": \"GT\",\n    \"country\": \"BRA\",\n    \"zipCode\": \"13400000\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/addresses/12345678911/shipping",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"addresses",
+						"12345678911",
+						"shipping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pets - Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Bruce\",\n\t\"gender\":\"male\",\n\t\"kind\":\"dog\",\n\t\"brand\":\"dachshund\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/pets/12345678911",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"pets",
+						"12345678911"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pets - Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Bruce\",\n\t\"gender\":\"female\",\n\t\"kind\":\"dog\",\n\t\"brand\":\"dachshund\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/v1/pets/12345678911/5c5ef023c5d06f34f42bcd47",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"pets",
+						"12345678911",
+						"5c5ef023c5d06f34f42bcd47"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
