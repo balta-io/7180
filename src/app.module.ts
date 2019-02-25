@@ -10,10 +10,10 @@ import { StoreModule } from 'src/modules/store/store.module';
     MongooseModule.forRoot(process.env.CONNECTION_STRING),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '127.0.0.1',
+      host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: 'mysql',
+      username: '7180',
+      password: '1q2w3e4r!@#$',
       database: '7180',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
