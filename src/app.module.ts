@@ -8,20 +8,20 @@ import { StoreModule } from 'src/modules/store/store.module';
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.CONNECTION_STRING),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: '7180',
-      password: '1q2w3e4r!@#$',
-      database: '7180',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   username: '7180',
+    //   password: '1q2w3e4r!@#$',
+    //   database: '7180',
+    //   entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    //   synchronize: true,
+    // }),
     BackofficeModule,
-    StoreModule,
+    // StoreModule,
   ],
 })
 export class AppModule { 
-  constructor(private readonly connection: Connection) {}
+  // constructor(private readonly connection: Connection) {}
 }

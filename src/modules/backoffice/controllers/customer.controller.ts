@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param, UseInterceptors, HttpStatus, HttpException, Put } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, UseInterceptors, HttpStatus, HttpException, Put, Req, UseGuards } from '@nestjs/common';
 import { CustomerService } from 'src/modules/backoffice/services/customer.service';
 import { Customer } from 'src/modules/backoffice/models/customer.model';
 import { QueryDto } from 'src/modules/backoffice/dtos/query.dto';
@@ -16,7 +16,9 @@ import { UpdateCustomerDto } from '../dtos/customer/update-customer.dto';
 
 @Controller('v1/customers')
 export class CustomerController {
-    constructor(private readonly customerService: CustomerService, private readonly accountService: AccountService) { }
+    constructor(
+        private readonly customerService: CustomerService,
+        private readonly accountService: AccountService) { }
 
     @Post()
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
@@ -66,7 +68,7 @@ export class CustomerController {
     async createBilling(@Param('document') document, @Body() model: CreditCard) {
         try {
             await this.customerService.saveOrUpdateCreditCard(document, model);
-            return new ResultDto(null, true, model, null);            
+            return new ResultDto(null, true, model, null);
         } catch (error) {
             throw new HttpException(new ResultDto('Não foi possível adicionar seu cartão de crédito', false, null, error), HttpStatus.BAD_REQUEST);
         }
