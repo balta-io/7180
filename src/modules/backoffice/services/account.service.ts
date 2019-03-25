@@ -13,6 +13,10 @@ export class AccountService {
     }
 
     async findOneByUsername(username) {
-        return new User("35292623822", "123456789", true);
+        return {
+            username: username,
+            email: 'andre@balta.io',
+            roles: ['admin', 'user']
+        }
     }
 }
