@@ -1,4 +1,6 @@
 import { Controller, Post, Get, Body, Param, UseInterceptors, HttpStatus, HttpException, Put, Req, UseGuards } from '@nestjs/common';
+import { Md5 } from "md5-typescript";
+import azure from 'azure-storage';
 import { CustomerService } from 'src/modules/backoffice/services/customer.service';
 import { Customer } from 'src/modules/backoffice/models/customer.model';
 import { QueryDto } from 'src/modules/backoffice/dtos/query.dto';
@@ -24,7 +26,8 @@ export class CustomerController {
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
     async post(@Body() model: CreateCustomerDto) {
         try {
-            const user = await this.accountService.create(new User(model.document, model.password, ['user'], false));
+            const password = await Md5.init(`${model.password}${process.env.SALT_KEY}`);
+            const user = await this.accountService.create(new User(model.document, password, ['user'], false));
             const customer = new Customer(model.name, model.document, model.email, [], null, null, null, user);
             await this.customerService.create(customer);
             return new ResultDto(null, true, model, null);
@@ -73,4 +76,35 @@ export class CustomerController {
             throw new HttpException(new ResultDto('Não foi possível adicionar seu cartão de crédito', false, null, error), HttpStatus.BAD_REQUEST);
         }
     }
+
+    // async uploadImage() {
+    //     try {
+    //         // Cria o Blob Service
+    //         const blobSvc = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=7180;AccountKey=8aE1CeGd11BQ1KJWoJWQgw/FXrSGSkQyEkxvnpB7oFCS7wNM4TbyEul3VRTrqGex1OHpoDdL9DPGso9WNORehQ==;EndpointSuffix=core.windows.net");
+
+    //         let filename = guid.raw().toString() + '.jpg';
+    //         let rawdata = req.body.image;
+    //         let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    //         let type = matches[1];
+    //         let buffer = new Buffer(matches[2], 'base64');
+
+    //         // Salva a imagem
+    //         await blobSvc.createBlockBlobFromText('customer-images', filename, buffer, {
+    //             contentType: type
+    //         }, function (error, result, response) {
+    //             if (error) {
+    //                 filename = 'default-image.png'
+    //             }
+    //         });
+
+    //         res.status(201).send({
+    //             message: 'Produto cadastrado com sucesso!'
+    //         });
+    //     } catch (e) {
+    //         console.log(e);
+    //         res.status(500).send({
+    //             message: 'Falha ao processar sua requisição'
+    //         });
+    //     }
+    // }
 }

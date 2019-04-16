@@ -18,7 +18,6 @@ export class AccountController {
 
     }
 
-    // TODO: Encriptar senha
     // TODO: Adicionar imagem ao cliente
     // TODO: Envio de E-mail com SendGrid
 
@@ -74,11 +73,4 @@ export class AccountController {
         const token = await this.authService.createToken(request.user.document, request.user.email, request.user.image, request.user.user.roles);
         return new ResultDto(null, true, token, null);
     }
-
-    // @Get('')
-    // @UseGuards(JwtAuthGuard)
-    // findAll(@Req() request) {
-    //     // console.log(request.user);
-    //     return [];
-    // }
 }
