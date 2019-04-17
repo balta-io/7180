@@ -1,6 +1,7 @@
 import { Controller, Post, Get, Body, Param, UseInterceptors, HttpStatus, HttpException, Put, Req, UseGuards } from '@nestjs/common';
 import { Md5 } from "md5-typescript";
-import azure from 'azure-storage';
+import * as Azure from "@azure/storage-blob";
+import { Guid } from "guid-typescript";
 import { CustomerService } from 'src/modules/backoffice/services/customer.service';
 import { Customer } from 'src/modules/backoffice/models/customer.model';
 import { QueryDto } from 'src/modules/backoffice/dtos/query.dto';
@@ -77,34 +78,33 @@ export class CustomerController {
         }
     }
 
-    // async uploadImage() {
-    //     try {
-    //         // Cria o Blob Service
-    //         const blobSvc = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=7180;AccountKey=8aE1CeGd11BQ1KJWoJWQgw/FXrSGSkQyEkxvnpB7oFCS7wNM4TbyEul3VRTrqGex1OHpoDdL9DPGso9WNORehQ==;EndpointSuffix=core.windows.net");
+    @Post('/upload')
+    async uploadImage(@Body() body: any) {
+        try {
+            
+            let filename = Guid.create().toString().substring(0, 8).replace('-', '') + '.jpg';
+            let rawdata = body.image;
+            let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+            let type = matches[1];
+            let buffer = new Buffer(matches[2], 'base64');
 
-    //         let filename = guid.raw().toString() + '.jpg';
-    //         let rawdata = req.body.image;
-    //         let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-    //         let type = matches[1];
-    //         let buffer = new Buffer(matches[2], 'base64');
+            // Cria o Blob Service
+            Azure.uploadStreamToBlockBlob()
+            const blobSvc = await Azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=7180;AccountKey=8aE1CeGd11BQ1KJWoJWQgw/FXrSGSkQyEkxvnpB7oFCS7wNM4TbyEul3VRTrqGex1OHpoDdL9DPGso9WNORehQ==;EndpointSuffix=core.windows.net");
 
-    //         // Salva a imagem
-    //         await blobSvc.createBlockBlobFromText('customer-images', filename, buffer, {
-    //             contentType: type
-    //         }, function (error, result, response) {
-    //             if (error) {
-    //                 filename = 'default-image.png'
-    //             }
-    //         });
 
-    //         res.status(201).send({
-    //             message: 'Produto cadastrado com sucesso!'
-    //         });
-    //     } catch (e) {
-    //         console.log(e);
-    //         res.status(500).send({
-    //             message: 'Falha ao processar sua requisição'
-    //         });
-    //     }
-    // }
+            // Salva a imagem
+            await blobSvc.createBlockBlobFromText('customer-images', filename, buffer, function (error, result, response) {
+                if (error) {
+                    filename = 'default-image.png'
+                }
+            });
+
+            return new ResultDto(null, true, { image: filename }, null);
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(new ResultDto('Não foi possível enviar sua imagem', false, null, error), HttpStatus.BAD_REQUEST);
+
+        }
+    }
 }
