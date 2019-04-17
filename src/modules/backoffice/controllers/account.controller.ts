@@ -1,7 +1,6 @@
 import { Controller, Get, UseGuards, Post, Req, UseInterceptors, Body, HttpException, HttpStatus } from "@nestjs/common";
 import { JwtAuthGuard } from "src/shared/guards/auth.guard";
 import { AuthService } from "src/shared/services/auth.service";
-import { RoleInterceptor } from "src/shared/interceptors/role.interceptor";
 import { AuthenticateDto } from "../dtos/account/authenticate.dto";
 import { ResetPasswordDto } from "../dtos/account/reset-password.dto";
 import { ChangePasswordDto } from "../dtos/account/change-password.dto";
@@ -17,9 +16,6 @@ export class AccountController {
     ) {
 
     }
-
-    // TODO: Adicionar imagem ao cliente
-    // TODO: Envio de E-mail com SendGrid
 
     // Autenticar
     @Post('authenticate')

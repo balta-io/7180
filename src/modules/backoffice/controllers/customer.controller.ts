@@ -1,7 +1,5 @@
 import { Controller, Post, Get, Body, Param, UseInterceptors, HttpStatus, HttpException, Put, Req, UseGuards } from '@nestjs/common';
 import { Md5 } from "md5-typescript";
-import * as Azure from "@azure/storage-blob";
-import { Guid } from "guid-typescript";
 import { CustomerService } from 'src/modules/backoffice/services/customer.service';
 import { Customer } from 'src/modules/backoffice/models/customer.model';
 import { QueryDto } from 'src/modules/backoffice/dtos/query.dto';
@@ -75,36 +73,6 @@ export class CustomerController {
             return new ResultDto(null, true, model, null);
         } catch (error) {
             throw new HttpException(new ResultDto('Não foi possível adicionar seu cartão de crédito', false, null, error), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @Post('/upload')
-    async uploadImage(@Body() body: any) {
-        try {
-            
-            let filename = Guid.create().toString().substring(0, 8).replace('-', '') + '.jpg';
-            let rawdata = body.image;
-            let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-            let type = matches[1];
-            let buffer = new Buffer(matches[2], 'base64');
-
-            // Cria o Blob Service
-            Azure.uploadStreamToBlockBlob()
-            const blobSvc = await Azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=7180;AccountKey=8aE1CeGd11BQ1KJWoJWQgw/FXrSGSkQyEkxvnpB7oFCS7wNM4TbyEul3VRTrqGex1OHpoDdL9DPGso9WNORehQ==;EndpointSuffix=core.windows.net");
-
-
-            // Salva a imagem
-            await blobSvc.createBlockBlobFromText('customer-images', filename, buffer, function (error, result, response) {
-                if (error) {
-                    filename = 'default-image.png'
-                }
-            });
-
-            return new ResultDto(null, true, { image: filename }, null);
-        } catch (error) {
-            console.log(error);
-            throw new HttpException(new ResultDto('Não foi possível enviar sua imagem', false, null, error), HttpStatus.BAD_REQUEST);
-
         }
     }
 }
