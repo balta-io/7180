@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param, UseInterceptors, HttpStatus, HttpException, Put, Req, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, UseInterceptors, HttpStatus, HttpException, Put, Req, UseGuards, CacheInterceptor } from '@nestjs/common';
 import { Md5 } from "md5-typescript";
 import { CustomerService } from 'src/modules/backoffice/services/customer.service';
 import { Customer } from 'src/modules/backoffice/models/customer.model';
@@ -47,6 +47,7 @@ export class CustomerController {
     }
 
     @Get()
+    @UseInterceptors(CacheInterceptor)
     async getAll() {
         const customers = await this.customerService.findAll();
         return new ResultDto(null, true, customers, null);

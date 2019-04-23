@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { CustomerSchema } from 'src/modules/backoffice/schemas/customer.schema';
@@ -20,6 +20,7 @@ import { JwtStrategy } from 'src/shared/strategies/jwt.strategy';
 
 @Module({
     imports: [
+        CacheModule.register(),
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.register({
             secretOrPrivateKey: 'secretKey',

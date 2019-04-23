@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm/connection/Connection';
 import { BackofficeModule } from 'src/modules/backoffice/backoffice.module';
 import { StoreModule } from 'src/modules/store/store.module';
+import { AgendaModule } from './modules/agenda/agenda.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { StoreModule } from 'src/modules/store/store.module';
     //   synchronize: true,
     // }),
     BackofficeModule,
+    AgendaModule,
     // StoreModule,
   ],
 })
