@@ -1,8 +1,6 @@
 export class RoomBookedEvent {
     constructor(
-      public readonly customer: string,
-      public readonly room: string,
-    ) {
-      console.log('******************* RoomBookedEvent *******************');
-    }
-  }
+        public readonly customerId: string,
+        public readonly roomId: string,
+    ) { }
+}

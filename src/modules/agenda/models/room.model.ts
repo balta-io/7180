@@ -1,14 +1,13 @@
-import { AggregateRoot } from "@nestjs/cqrs";
-import { RoomBookedEvent } from "../events/room-booked.event";
+import { AggregateRoot } from '@nestjs/cqrs';
+import { RoomBookedEvent } from '../events/room-booked.event';
 
 export class Room extends AggregateRoot {
     constructor(private readonly id: string) {
-      super();
+        super();
     }
-  
-    book(customer: string) {
-      console.log('******************* Room: Book *******************');
-      // regras pra reservar uma sala
-      this.apply(new RoomBookedEvent(this.id, customer));
+
+    book(customerId: string) {
+        // Regras de negócio
+        this.apply(new RoomBookedEvent(customerId, this.id));
     }
-  }
+}

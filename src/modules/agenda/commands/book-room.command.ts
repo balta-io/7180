@@ -1,8 +1,6 @@
 export class BookRoomCommand {
     constructor(
-      public readonly customer: string,
-      public readonly room: string,
-    ) {
-      console.log('******************* BookRoomCommand *******************');
-    }
+      public readonly customerId: string,
+      public readonly roomId: string,
+    ) {}
   }

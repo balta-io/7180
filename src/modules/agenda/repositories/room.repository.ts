@@ -3,13 +3,9 @@ import { Room } from '../models/room.model';
 
 @Injectable()
 export class RoomRepository {
-  async findOneById(id: string): Promise<Room> {
-    console.log('******************* Repository: findOne *******************');
-    return new Room("12345678911");
-  }
+    async findOneById(id: string): Promise<Room> {
+        console.log('RoomRepository:findOneById - Recuperando a sala...');
 
-  async save(room: Room) {
-    console.log('******************* Repository: Save *******************');
-    return null;
-  }
+        return new Room('123456789');
+    }
 }
