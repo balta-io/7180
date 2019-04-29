@@ -7,7 +7,8 @@ export class Room extends AggregateRoot {
     }
   
     book(customer: string) {
-      // logica
+      console.log('******************* Room: Book *******************');
+      // regras pra reservar uma sala
       this.apply(new RoomBookedEvent(this.id, customer));
     }
   }
