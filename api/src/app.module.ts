@@ -5,7 +5,6 @@ import { Connection } from 'typeorm/connection/Connection';
 import { BackofficeModule } from 'src/modules/backoffice/backoffice.module';
 import { StoreModule } from 'src/modules/store/store.module';
 import { AgendaModule } from './modules/agenda/agenda.module';
-import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -22,7 +21,6 @@ import { ChatModule } from './modules/chat/chat.module';
     // }),
     BackofficeModule,
     //AgendaModule,
-    ChatModule,
     // StoreModule,
   ],
 })

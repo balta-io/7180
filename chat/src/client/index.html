@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <title>Dachshop Chat</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <ul id="message-list"></ul>
+
+        <div class="row">
+            <div class="column">
+                <input type="text" id="message">
+            </div>
+            <div class="column column-10">
+                <button id="btn-send">ENVIAR</button>
+            </div>
+            <div class="column colum-20" style="background-color: #bbb">
+                <ul id="user-list"></ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const socket = io('http://localhost:3000');
+        socket.on('connect', function () {
+            console.log('Conectado ao servidor...');
+
+            socket.on('chat', function (data) {
+                console.log(data);
+                appendMessage(data.message);
+            });
+
+            socket.on('users', function (data) {
+                console.log(data);
+                appendUser(data.user);
+            });
+        });
+
+        socket.on('exception', function (data) {
+            console.log('event', data);
+        });
+
+        socket.on('disconnect', function () {
+            console.log('Desconectado do servidor...');
+        });
+
+        document.getElementById('btn-send').onclick = function () {
+            var message = document.getElementById('message').value;
+            socket.emit('chat', {
+                message: message
+            });
+            appendMessage(message);
+        };
+
+        function appendMessage(message) {
+            var ul = document.getElementById("message-list");
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(message));
+            ul.appendChild(li);
+        }
+
+        function appendUser(user) {
+            var ul = document.getElementById("user-list");
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(user));
+            ul.appendChild(li);
+        }
+    </script>
+</body>
+
+</html>
